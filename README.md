@@ -6,7 +6,7 @@ I'm not a fantastic Python developer, so there are probably some 'not-best-pract
 <strong>Prerequisites</strong>:
 <ul>
 <li>Python 3.6+</li>
-<li><a href=https://github.com/praw-dev/praw>Python Reddit API Wrapper (PRAW), run "pip install praw"</li>
+<li><a href=https://github.com/praw-dev/praw>Python Reddit API Wrapper (PRAW)</a>, run "pip install praw"</li>
 <li>A new <a href=https://ssl.reddit.com/prefs/apps/>Reddit Application</a></li>
 </ul>
 
