@@ -1,3 +1,12 @@
+###################################################################
+#
+#                   RedditBot AutoMod Bot v0.1.2
+#                         by /u/Robbbbbbbbb
+#
+#
+#               https://github.com/Robbbbbbbbb/RedditBot
+###################################################################
+
 import praw
 import time
 import os
@@ -5,23 +14,23 @@ import os
 ###################################################################
 #  Start editing below this line
 ###################################################################
-#  Define the keyword that the bot is looking for
-keyword = ''
+#  Define the keywords that the bot is looking for
+keyword = ['keyword1', 'keyword2']
 # Which Subreddit to use
-sub = ''
+sub = 'Test'
 # Number of comments to parse through
-numComments = <integer>
+numComments = 25
 # How many seconds to sleep before running again
-sleepTime = <integer>
+sleepTime = 10
 # Name of the user account stored in praw.ini
-userAccount = ''
+userAccount = 'MyRedditAccount'
 # Provide a short description of this program
-userAgent = ''
+userAgent = 'YOURPROJECTNAME via RedditBot AutoMod v0.1.2'
 # Define comment being sent
-REPLY_MESSAGE = ''
+REPLY_MESSAGE = 'I see you!'
 #
 ###################################################################
-#  End editing
+#  End Editing
 ###################################################################
 comments_replied_to = []
 
@@ -66,15 +75,16 @@ def main():
 def run_bot(reddit, comments_replied_to):
     print('Obtaining {}'.format(numComments) + ' comments')
     for comment in reddit.subreddit(sub).comments(limit=25):
-        if keyword in comment.body and comment.id not in comments_replied_to and not comment.author == reddit.user.me():
-            print('NEW string with ' + keyword + 'found in comment: ' + comment.id)
-#            comment.reply(REPLY_MESSAGE)
-            print('Replied to ' + comment.id)
-            comments_replied_to.append(comment.id)
-            print('Open TXT list to write change')
-            with open('comments_replied_to.txt', 'a') as f:
-                print('Write comment ID to TXT list')
-                f.write(comment.id + '\n')
+        if any(keyword in comment.body.lower() for keyword in keywords):
+            if comment.id not in comments_replied_to and not comment.author == reddit.user.me():
+                print('NEW string found in comment: ' + comment.id)
+                comment.reply(REPLY_MESSAGE)
+                print('Replied to ' + comment.id)
+                comments_replied_to.append(comment.id)
+                print('Open TXT list to write change')
+                with open('comments_replied_to.txt', 'a') as f:
+                    print('Write comment ID to TXT list')
+                    f.write(comment.id + '\n')
     print('Look done, sleeping.')
     # Sleep before running again
     time.sleep(sleepTime)
