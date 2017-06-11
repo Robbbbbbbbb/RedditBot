@@ -87,7 +87,7 @@ def run_bot(reddit, comments_replied_to):
                         print('Write comment ID to TXT list')
                         f.write(comment.id + '\n')
                 except praw.exceptions.APIException as ErrorRateExceeded:
-                    prawRateMessage = ErrorRateExceeded.message
+                    prawRateMessage = str(ErrorRateExceeded.message)
                     rateSplit = ''.join(filter(str.isdigit, prawRateMessage))
                     rateSplitNum = int(rateSplit)
                     print('WARNING: Rate limit exceeded. Sleeping for ' + rateSplit + ' minutes')
