@@ -10,14 +10,14 @@ I'm not a fantastic Python developer, so there are probably some 'not-best-pract
 <li>A new <a href=https://ssl.reddit.com/prefs/apps/>Reddit Application</a></li>
 </ul>
 
-<strong>Current version</strong>: v0.1.2 (Release 06/11/2017)
+<strong>Current version</strong>: v0.1.3 (Release 06/11/2017)
 
 All of your variables should be in the header, but you will also need to edit praw.ini with the user account details generated from the Reddit app.
 
 <strong>Planned (future) improvements</strong>:
 <ul>
 <li><s>Support for multiple keywords using lists</s> - done in v0.1.2</li>
-<li>Error handling for exceeded rate limits</li>
+<li><s>Error handling for exceeded rate limits</s> - done in v0.1.3</li>
 <li>Performance handling for large amounts of comments by utilizing SQL lite instead of a TXT file for comments</li>
 <li>Allow bot to listen for keyword lists and reply with different REPLY_MESSAGE</li>
 <li>Integrate support for multiple user accounts to allow for more than one bot to post from a single instance of this program</li>
