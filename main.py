@@ -1,6 +1,6 @@
 ###################################################################
 #
-#                   RedditBot AutoMod Bot v0.1.2
+#                   RedditBot AutoMod Bot v0.1.3
 #                         by /u/Robbbbbbbbb
 #
 #
@@ -77,14 +77,24 @@ def run_bot(reddit, comments_replied_to):
     for comment in reddit.subreddit(sub).comments(limit=25):
         if any(keyword in comment.body.lower() for keyword in keywords):
             if comment.id not in comments_replied_to and not comment.author == reddit.user.me():
-                print('NEW string found in comment: ' + comment.id)
-                comment.reply(REPLY_MESSAGE)
-                print('Replied to ' + comment.id)
-                comments_replied_to.append(comment.id)
-                print('Open TXT list to write change')
-                with open('comments_replied_to.txt', 'a') as f:
-                    print('Write comment ID to TXT list')
-                    f.write(comment.id + '\n')
+                try:
+                    print('NEW string found in comment: ' + comment.id)
+                    comment.reply(REPLY_MESSAGE)
+                    print('Replied to ' + comment.id)
+                    comments_replied_to.append(comment.id)
+                    print('Open TXT list to write change')
+                    with open('comments_replied_to.txt', 'a') as f:
+                        print('Write comment ID to TXT list')
+                        f.write(comment.id + '\n')
+                except praw.exceptions.APIException as ErrorRateExceeded:
+                    prawRateMessage = ErrorRateExceeded.message
+                    rateSplit = ''.join(filter(str.isdigit, prawRateMessage))
+                    rateSplitNum = int(rateSplit)
+                    print('WARNING: Rate limit exceeded. Sleeping for ' + rateSplit + ' minutes')
+                    seconds = 60
+                    apiSleep = rateSplitNum * seconds
+                    time.sleep(apiSleep)
+                    print('Resuming after Look completes!')
     print('Look done, sleeping.')
     # Sleep before running again
     time.sleep(sleepTime)
